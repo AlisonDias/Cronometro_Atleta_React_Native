@@ -92,6 +92,11 @@ export default class App extends Component {
 
                 <Text style={styles.fraseFinal}>{this.state.fraseFinal}</Text>
 
+
+                <TouchableOpacity style={styles.buttonResultado} onPress={() => this.props.navigation.navigate('Resultado')}>
+                    <Text style={styles.buttonText}>Resultados</Text>
+                </TouchableOpacity>
+
               
                 
 
@@ -169,5 +174,18 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         opacity: 0.9,
 
-    }
+    },
+
+    buttonResultado:{
+
+        backgroundColor: '#848484',
+        marginHorizontal: 15,
+        height: 40,
+        justifyContent: 'center',
+        width: 100,
+        alignItems: 'center',
+        borderRadius: 20,
+        alignSelf: 'center',
+        marginTop: 30,
+    },
 });
