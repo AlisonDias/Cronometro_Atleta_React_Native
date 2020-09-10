@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+
 
 
 
@@ -15,10 +17,15 @@ export default class App extends Component {
             startStopText: 'Start',
             nome: null,
             fraseFinal: "Aguardando Corredor",
+
+            itens: [{ key: "0", nome: "Alison", tempo: "2.5" },
+            { key: "1", nome: "Pedro", tempo: "2.5" },],
+
         }
 
         this.startStopButton = this.startStopButton.bind(this);
         this.clearButton = this.clearButton.bind(this);
+        this.addResultado = this.addResultado.bind(this);
         
         
     }
@@ -44,7 +51,7 @@ export default class App extends Component {
             clearInterval(this.state.timer);
             let newState = this.state;
             newState.startStopText = 'Start';
-            newState.fraseFinal = "O corredor " + this.state.nome + " está com o tempo de " + this.state.number;
+            newState.fraseFinal = "O corredor " + this.state.nome + " está com o tempo de " + this.state.number.toFixed(1);
             newState.timer = null;
             this.setState(newState);
         }
@@ -60,7 +67,25 @@ export default class App extends Component {
         this.setState(newState);
     }
 
+    addResultado(){
+
+        let newItem = {
+            key: this.state.itens.length.toString(),
+            nome: this.state.nome,
+            tempo: this.state.number.toFixed(1)
+        }
+
+        let itens = this.state.itens;
+        itens.push(newItem);
+        this.setState({itens});
+
+        alert("Inserido a lista de resultados");
+
+    }
+
     render() {
+
+       
         
 
         return (
@@ -92,8 +117,17 @@ export default class App extends Component {
 
                 <Text style={styles.fraseFinal}>{this.state.fraseFinal}</Text>
 
+                <TouchableOpacity style={styles.buttonAddLista} onPress={(this.addResultado)}>
+                    <Text style={styles.buttonText}>Adicionar a lista de resultados</Text>
+                </TouchableOpacity>
 
-                <TouchableOpacity style={styles.buttonResultado} onPress={() => this.props.navigation.navigate('Resultado')}>
+
+                <TouchableOpacity style={styles.buttonResultado} onPress={() => {
+                    /* 1. Navigate to the Details route with params */
+                    this.props.navigation.navigate('Resultado', {
+                        itens: this.state.itens 
+                    });
+                }}>
                     <Text style={styles.buttonText}>Resultados</Text>
                 </TouchableOpacity>
 
@@ -183,6 +217,19 @@ const styles = StyleSheet.create({
         height: 40,
         justifyContent: 'center',
         width: 100,
+        alignItems: 'center',
+        borderRadius: 20,
+        alignSelf: 'center',
+        marginTop: 30,
+    },
+
+    buttonAddLista: {
+
+        backgroundColor: '#848484',
+        marginHorizontal: 15,
+        height: 40,
+        justifyContent: 'center',
+        width: 200,
         alignItems: 'center',
         borderRadius: 20,
         alignSelf: 'center',

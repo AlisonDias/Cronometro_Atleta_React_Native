@@ -1,28 +1,64 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import { StackNavigator } from 'react-navigation';
+
 
 
 
 
 export default class Resultado extends Component {
 
-
+    
 
     constructor(props) {
         super(props)
 
+        
+/*
+        this.state={
+            text: "",
+            itens: [{key:"1", nome:"Alison", tempo:"2.5"},
+                    {key: "2", nome: "Pedro", tempo: "4.5" },  ],  
+        }*/
 
+        
+   
+        
+    }
+
+    renderItem(obj){
+
+        
+
+        return(
+
+        <Text style={styles.text}>{obj.item.nome + " com tempo de " + obj.item.tempo}</Text>
+        );
+        
     }
 
 
-    render() {
+    render(){
+
+        const  itens  = this.props.route.params.itens
+        
+
         return (
             <View style={styles.body}>
 
                 <Text style={styles.resultado}>Resultados </Text>
                 <View style={styles.tContainer}>
-                
+
+                    <FlatList data={itens}
+                        renderItem={this.renderItem}
+                        extraData={itens}>
+                    </FlatList>
+
+                 <Text></Text>
+                 
                 </View>
+
 
             </View>
 
@@ -82,7 +118,16 @@ const styles = StyleSheet.create({
         padding: 20,
 
 
-    }
+    },
+
+    text:{
+
+        color: '#fff',
+        fontSize: 20,
+        textAlign: "center",
+        padding: 7,
+
+    },
 
 
 
