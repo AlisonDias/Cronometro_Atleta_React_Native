@@ -4,11 +4,11 @@
     "slug": "Cronometro_Atleta",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/img/Logo.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./src/img/Logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#333333"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -20,7 +20,7 @@
       "supportsTablet": true
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./src/img/Logo.png"
     },
     "android": {
       "package": "com.alisondias.projeto_cronometro"
