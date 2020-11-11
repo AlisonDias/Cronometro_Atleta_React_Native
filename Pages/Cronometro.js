@@ -143,7 +143,8 @@ const styles = StyleSheet.create({
     body: {
         flex: 1,
         backgroundColor: '#333',
-        paddingTop: 40,
+        paddingTop: 100,
+        padding: 23,
 
     },
 

@@ -26,7 +26,7 @@ export default class Apresentacao extends Component {
                     source={require('../src/img/Logo.png')} />
 
                 <View style={styles.tContainer}>
-                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Cronometro')}>
+                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Login')}>
                         <Text style={styles.buttonText}>Iniciar</Text>
                     </TouchableOpacity>
                     </View>
@@ -43,8 +43,9 @@ const styles = StyleSheet.create({
     body: {
         flex: 1,
         backgroundColor: '#333',
-        paddingTop: 40,
+        paddingTop: 50,
         alignSelf: 'center',
+        padding: 23,
 
     },
 
