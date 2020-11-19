@@ -1,27 +1,42 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, TouchableOpacity, Image, TextInput } from 'react-native';
+import firebase from '../firebaseConfig';
 
 
 
 
 export default class Login extends Component {
 
+    
+
 
 
     constructor(props) {
         super(props)
 
+
+       
         this.state = {
             email: null,
             senha: null,
-            
+
         }
+
 
         this.login = this.login.bind(this);
 
     }
 
     login() {
+
+    
+
+        firebase.auth().signInWithEmailAndPassword(this.state.email.toString(), this.state.senha.toString()).catch(function (error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            alert(errorCode, errorMessage);
+            // ...
+        });
 
     }
 
@@ -38,21 +53,21 @@ export default class Login extends Component {
 
                 <View style={styles.formulario}>
 
-                <TextInput
-                    placeholder="Digite seu e-mail"
-                    onChangeText={(text) => this.setState({ email: text })}
-                    style={styles.input}
-                />
-                
+                    <TextInput
+                        placeholder="Digite seu e-mail"
+                        onChangeText={(text) => this.setState({ email: text })}
+                        style={styles.input}
+                    />
 
-                <TextInput
-                    placeholder="Digite sua senha"
-                    onChangeText={(text) => this.setState({ senha: text })}
-                    style={styles.input}
-                />
+
+                    <TextInput
+                        placeholder="Digite sua senha"
+                        onChangeText={(text) => this.setState({ senha: text })}
+                        style={styles.input}
+                    />
 
                 <View style={styles.tContainer}>
-                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Cronometro')}>
+                    <TouchableOpacity style={styles.button} onPress={() => this.login()}>
                         <Text style={styles.buttonText}>Realizar Login</Text>
                     </TouchableOpacity>
 

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, TouchableOpacity, Image, TextInput } from 'react-native';
+import { Platform, StyleSheet, Text, View, TouchableOpacity, Image, TextInput} from 'react-native';
+import firebase from '../firebaseConfig';
 
 
 
 
-export default class Login extends Component {
+
+export default class Cadastro extends Component {
 
 
 
@@ -17,14 +19,23 @@ export default class Login extends Component {
 
         }
 
-        this.login = this.login.bind(this);
+        this.cadastrar = this.cadastrar.bind(this);
 
     }
 
-    login() {
+    cadastrar() {
 
+           
+        
+        firebase.auth().createUserWithEmailAndPassword(this.state.email.toString(), this.state.senha.toString()).catch(function (error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            alert(errorCode, errorMessage);
+            // ...
+        });
+
+    
     }
-
 
     render() {
         return (
@@ -52,8 +63,8 @@ export default class Login extends Component {
                     />
 
                     <View style={styles.tContainer}>
-                        <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Cronometro')}>
-                            <Text style={styles.buttonText}>Realizar Login</Text>
+                        <TouchableOpacity style={styles.button} onPress={() => this.cadastrar()}>
+                            <Text style={styles.buttonText}>Cadastrar</Text>
                         </TouchableOpacity>
                     </View>
 

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { Platform, StyleSheet, Text, View, TouchableOpacity, Image, Alert } from 'react-native';
+import firebase from '../firebaseConfig';
+import { useNavigation } from '@react-navigation/native';
 
 
 
@@ -9,13 +11,62 @@ export default class Apresentacao extends Component {
 
 
     constructor(props) {
-        super(props)
 
+        super(props)
+        
         
     }
 
     
+    logado(props){
+
+       
+
+        
+        firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+
+            
+            
+                Alert.alert(
+                    "Usuario",
+                    "Usuario Logado",
+                    [
+                        {
+                            text: "OK",
+                            onPress: () =>props.navigation.navigate('Cronometro')
+                        }
+                          
+                        
+                    ],
+                    { cancelable: false }
+                );
+
+        } else {
+
+            Alert.alert(
+                "Usuario",
+                "Usuario não está Logado",
+                [
+                    {
+                        text: "OK",
+                        onPress: () => props.navigation.navigate('Login')
+                    }
+
+
+                ],
+                { cancelable: false }
+            );
+        }
+    });
+
+}
+
+    
     render() {
+
+        const { navigation } = this.props;
+
         return (
             <View style={styles.body}>
 
@@ -26,7 +77,7 @@ export default class Apresentacao extends Component {
                     source={require('../src/img/Logo.png')} />
 
                 <View style={styles.tContainer}>
-                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Login')}>
+                    <TouchableOpacity style={styles.button} onPress={() => this.logado(this.props)}>
                         <Text style={styles.buttonText}>Iniciar</Text>
                     </TouchableOpacity>
                     </View>

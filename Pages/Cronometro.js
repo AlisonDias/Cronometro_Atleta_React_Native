@@ -1,6 +1,8 @@
+import { useLinkProps } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import firebase from '../firebaseConfig';
 
 
 
@@ -10,10 +12,12 @@ export default class App extends Component {
     constructor(props) {
         super(props)
 
+    
         
         this.state = {
             timer: null,
             number: 0,
+            usuarioLogado: null,
             startStopText: 'Start',
             nome: null,
             fraseFinal: "Aguardando Corredor",
@@ -26,9 +30,13 @@ export default class App extends Component {
         this.startStopButton = this.startStopButton.bind(this);
         this.clearButton = this.clearButton.bind(this);
         this.addResultado = this.addResultado.bind(this);
+
+        
         
         
     }
+
+  
 
   
 
@@ -69,6 +77,8 @@ export default class App extends Component {
 
     addResultado(){
 
+                
+
         let newItem = {
             key: this.state.itens.length.toString(),
             nome: this.state.nome,
@@ -79,14 +89,60 @@ export default class App extends Component {
         itens.push(newItem);
         this.setState({itens});
 
+        
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+
+                alert(user.email);
+                email = user.email;
+                uid = user.uid;
+                
+
+            } else {
+
+                alert('não entrou');
+                // User is signed out.
+                // ...
+            }
+        });
+      
+
+        try {
+            firebase.database().ref('crud/' + uid).push({
+                nome: this.state.nome,
+                tempo: this.state.number.toFixed(1),
+                email: email,
+                
+            })
+
+        } catch (error) {
+            alert(error);
+        }
+
+        
+
         alert("Inserido a lista de resultados");
+
+
+
 
     }
 
+
+    deslogar(){
+
+        firebase.auth().signOut().then(function () {
+            alert('Deslogado com sucesso')
+        }).catch(function (error) {
+            alert('Falha"')
+        });
+
+    }
+
+
     render() {
 
-       
-        
+
 
         return (
             <View style={styles.body}>
@@ -130,6 +186,16 @@ export default class App extends Component {
                 }}>
                     <Text style={styles.buttonText}>Resultados</Text>
                 </TouchableOpacity>
+
+
+                <View style={styles.tContainer}>
+                    <TouchableOpacity style={styles.buttonAddLista} onPress={() => this.deslogar()}>
+                        <Text style={styles.buttonText}>deslogar</Text>
+                    </TouchableOpacity>
+                </View>
+
+
+                
 
               
                 
