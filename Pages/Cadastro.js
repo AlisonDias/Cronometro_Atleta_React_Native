@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, TouchableOpacity, Image, TextInput} from 'react-native';
+import { Platform, StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView} from 'react-native';
 import firebase from '../firebaseConfig';
 
 
@@ -40,6 +40,7 @@ export default class Cadastro extends Component {
     render() {
         return (
             <View style={styles.body}>
+                <ScrollView>
 
                 <Text style={styles.nomeApp}>Cadastro</Text>
 
@@ -71,7 +72,7 @@ export default class Cadastro extends Component {
 
 
                 </View>
-
+                </ScrollView>
             </View>
 
 

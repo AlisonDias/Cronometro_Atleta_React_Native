@@ -22,8 +22,8 @@ export default class App extends Component {
             nome: null,
             fraseFinal: "Aguardando Corredor",
 
-            itens: [{ key: "0", nome: "Alison", tempo: "2.5" },
-            { key: "1", nome: "Pedro", tempo: "2.5" },],
+            /*itens: [{ key: "0", nome: "Alison", tempo: "2.5" },
+            { key: "1", nome: "Pedro", tempo: "2.5" },],*/
 
         }
 
@@ -79,7 +79,7 @@ export default class App extends Component {
 
                 
 
-        let newItem = {
+        /*let newItem = {
             key: this.state.itens.length.toString(),
             nome: this.state.nome,
             tempo: this.state.number.toFixed(1)
@@ -87,13 +87,13 @@ export default class App extends Component {
 
         let itens = this.state.itens;
         itens.push(newItem);
-        this.setState({itens});
+        this.setState({itens});*/
 
         
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
 
-                alert(user.email);
+                //alert(user.email);
                 email = user.email;
                 uid = user.uid;
                 
@@ -180,9 +180,9 @@ export default class App extends Component {
 
                 <TouchableOpacity style={styles.buttonResultado} onPress={() => {
                     /* 1. Navigate to the Details route with params */
-                    this.props.navigation.navigate('Resultado', {
+                    this.props.navigation.navigate('Resultado'/*, {
                         itens: this.state.itens 
-                    });
+                    }*/);
                 }}>
                     <Text style={styles.buttonText}>Resultados</Text>
                 </TouchableOpacity>

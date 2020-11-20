@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, TouchableOpacity, Image, TextInput } from 'react-native';
+import { Platform, StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native';
 import firebase from '../firebaseConfig';
 
 
@@ -44,6 +44,7 @@ export default class Login extends Component {
     render() {
         return (
             <View style={styles.body}>
+                <ScrollView>
 
                 <Text style={styles.nomeApp}>Realizar Login</Text>
 
@@ -79,7 +80,7 @@ export default class Login extends Component {
                     
 
                 </View>
-
+                </ScrollView>
             </View>
 
 

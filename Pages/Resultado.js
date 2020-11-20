@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { StackNavigator } from 'react-navigation';
+import firebase from '../firebaseConfig';
 
 
 
@@ -15,17 +16,46 @@ export default class Resultado extends Component {
         super(props)
 
         
-/*
+
         this.state={
             text: "",
-            itens: [{key:"1", nome:"Alison", tempo:"2.5"},
-                    {key: "2", nome: "Pedro", tempo: "4.5" },  ],  
-        }*/
+            itens: [],  
+        }
 
         
-   
+        this.buscarDados();
         
     }
+
+    buscarDados(){
+
+        var userId = firebase.auth().currentUser.uid;
+
+        try {
+            firebase.database().ref('crud/' + userId).on('value', (snapshot) => {
+                list = [];
+                snapshot.forEach((childItem) => {
+                    list.push({
+                        key: childItem.key,
+                        nome: childItem.val().nome,
+                        tempo: childItem.val().tempo,
+                    });
+                });
+                //setListFire(list);
+
+                let newS = this.state;
+                newS.itens = list;
+                this.setState(newS);
+
+            })
+
+        } catch (error) {
+            alert(error);
+        }
+
+    }
+
+    
 
     renderItem(obj){
 
@@ -41,18 +71,23 @@ export default class Resultado extends Component {
 
     render(){
 
-        const  itens  = this.props.route.params.itens
+        //const  itens  = this.props.route.params.itens
+        
+        
         
 
         return (
             <View style={styles.body}>
 
                 <Text style={styles.resultado}>Resultados </Text>
+
+               
+
                 <View style={styles.tContainer}>
 
-                    <FlatList data={itens}
+                    <FlatList data={this.state.itens}
                         renderItem={this.renderItem}
-                        extraData={itens}>
+                        extraData={this.state.itens}>
                     </FlatList>
 
                  <Text></Text>
