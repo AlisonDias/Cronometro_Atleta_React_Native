@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { StackNavigator } from 'react-navigation';
 import firebase from '../firebaseConfig';
@@ -43,6 +43,8 @@ export default class Resultado extends Component {
                 });
                 //setListFire(list);
 
+                
+
                 let newS = this.state;
                 newS.itens = list;
                 this.setState(newS);
@@ -78,6 +80,7 @@ export default class Resultado extends Component {
 
         return (
             <View style={styles.body}>
+                <ScrollView>
 
                 <Text style={styles.resultado}>Resultados </Text>
 
@@ -94,7 +97,7 @@ export default class Resultado extends Component {
                  
                 </View>
 
-
+                </ScrollView>
             </View>
 
 

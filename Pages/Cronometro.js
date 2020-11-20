@@ -21,6 +21,7 @@ export default class App extends Component {
             startStopText: 'Start',
             nome: null,
             fraseFinal: "Aguardando Corredor",
+            uid: null,
 
             /*itens: [{ key: "0", nome: "Alison", tempo: "2.5" },
             { key: "1", nome: "Pedro", tempo: "2.5" },],*/
@@ -90,12 +91,14 @@ export default class App extends Component {
         this.setState({itens});*/
 
         
-        firebase.auth().onAuthStateChanged(function (user) {
+        /*firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
 
                 //alert(user.email);
                 email = user.email;
                 uid = user.uid;
+
+                
                 
 
             } else {
@@ -104,8 +107,14 @@ export default class App extends Component {
                 // User is signed out.
                 // ...
             }
-        });
-      
+        });*/
+        var user = firebase.auth().currentUser;
+        var email, uid;
+
+        if (user != null) {
+            email = user.email; 
+            uid = user.uid;   
+        }
 
         try {
             firebase.database().ref('crud/' + uid).push({
@@ -113,7 +122,9 @@ export default class App extends Component {
                 tempo: this.state.number.toFixed(1),
                 email: email,
                 
-            })
+            });
+
+            alert("Inserido a lista de resultados");
 
         } catch (error) {
             alert(error);
@@ -121,7 +132,7 @@ export default class App extends Component {
 
         
 
-        alert("Inserido a lista de resultados");
+        
 
 
 
